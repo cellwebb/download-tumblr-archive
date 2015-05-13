@@ -1,2 +1,4 @@
 downloadedpics/*.jpg
 downloadedpics/*.png
+downloadedpics/*.gif
+post_data.csv

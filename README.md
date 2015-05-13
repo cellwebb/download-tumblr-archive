@@ -1,3 +1,16 @@
 # tumblr-pics
-Download your tumblr picture archive
-NOTE: As of 8 May 2015 only the first 20 or so images get downloaded, because I haven't figure out how to make it load more of the page within python.
+Download entire tumblr picture archive
+
+Requires selenium and beautifulsoup4
+
+Install dependencies
+    pip install selenium beautifulsoup4
+
+Clone
+    git clone http://thomwebb/downloadtumblrpics.git
+
+Run
+    python getpics.py <tumblr_blog>
+
+ex.
+    python getpics.py best-of-tumblr

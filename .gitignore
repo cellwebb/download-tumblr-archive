@@ -1,4 +1,6 @@
 downloadedpics/*.jpg
 downloadedpics/*.png
 downloadedpics/*.gif
-post_data.csv
+blog_data.csv
+archive_data.csv
+*.pyc

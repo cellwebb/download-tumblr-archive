@@ -1,6 +1,7 @@
 downloadedpics/*.jpg
 downloadedpics/*.png
 downloadedpics/*.gif
-blog_data.csv
-archive_data.csv
+output/blog_data.csv
+output/archive_data.csv
+resources/*.pyc
 *.pyc

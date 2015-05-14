@@ -15,8 +15,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import sys, os, csv, time
 
-from UnicodeWriter import UnicodeWriter
-from id_generator import id_generator
+from resources.UnicodeWriter import UnicodeWriter
+from resources.id_generator import id_generator
 
 start_time = time.time()
 
@@ -39,7 +39,7 @@ driver.implicitly_wait(30)
 driver.get(tumblr_url)
 
 
-with open('blog_data.csv','wb') as csvfile:
+with open('output_data/blog_data.csv','wb') as csvfile:
     wr = UnicodeWriter(csvfile, quoting=csv.QUOTE_ALL)
     row = ['image_url', 'permalink', 'post_title', 'post_date', 'notes', 'username', 'caption']
     wr.writerow(row)

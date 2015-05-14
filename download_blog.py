@@ -24,7 +24,7 @@ script, tumblr_blog = argv
 
 tumblr_url = 'http://' + tumblr_blog + '.tumblr.com'
 
-NUMBER_OF_SCROLLS = 2
+NUMBER_OF_SCROLLS = 10
 WAIT_BETWEEN_SCROLLS = 3
 DOWNLOADING = True
 DOWNLOAD_FOLDER = 'downloadedpics/'
@@ -79,12 +79,17 @@ with open('blog_data.csv','wb') as csvfile:
             username = ''
             # if post_info.find(class_ = 'captions').p.a.get('href'):
 
-            print post.div.get('class')
+            #print post.div.get('class')
             if post.div.get('class') == ['photo-hover']:
                 image_url = post.img.get('src')
-                image_url = image_url.replace('_500','_1280').replace('_540','_1280')
+                for low_res in ['_250', '_400', '_500', '_540']:
+                    image_url = image_url.replace(low_res ,'_1280')
+
+                if not '_1280' in image_url:
+                    print image_url
 
                 if image_url in image_urls:
+                    #print "caught!"
                     continue
 
                 image_urls.append(image_url)
@@ -101,9 +106,14 @@ with open('blog_data.csv','wb') as csvfile:
 
                 for photo in photoset_images:
                     image_url = photo.get('src')
-                    image_url = image_url.replace('_500','_1280').replace('_540','_1280')
+                    for low_res in ['_250', '_400', '_500', '_540']:
+                        image_url = image_url.replace(low_res ,'_1280')
+
+                    if not '_1280' in image_url:
+                        print image_url
 
                     if image_url in image_urls:
+                        #print "caught!"
                         continue
 
                     image_urls.append(image_url)
@@ -114,6 +124,8 @@ with open('blog_data.csv','wb') as csvfile:
                         wr.writerow(row)
                     except UnicodeError:
                         print "Unicode Error: \n", row
+            else:
+                print post.div.get('class')
 
 driver.quit()
 

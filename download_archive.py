@@ -28,6 +28,11 @@ WAIT_BETWEEN_SCROLLS = 3
 DOWNLOADING = True
 DOWNLOAD_FOLDER = 'downloadedpics/'
 
+try:
+    os.stat(DOWNLOAD_FOLDER)
+except:
+    os.mkdir(DOWNLOAD_FOLDER)
+
 image_urls = []
 permalinks = []
 
@@ -37,7 +42,6 @@ driver = webdriver.Firefox()
 driver.implicitly_wait(30)
 driver.get(tumblr_url)
 
-
 with open('archive_data.csv','wb') as csvfile:
     wr = UnicodeWriter(csvfile, quoting=csv.QUOTE_ALL)
     row = ['image_url', 'permalink', 'post_title', 'post_date', 'notes']
@@ -45,9 +49,9 @@ with open('archive_data.csv','wb') as csvfile:
 
     driver.find_element("id","body").click()
 
-    for scroll_counter in range(0,NUMBER_OF_SCROLLS):
+    for scroll_counter in range(0, NUMBER_OF_SCROLLS):
         driver.execute_script("window.scrollByPages(1);")
-        percent = (scroll_counter + 1)*100/NUMBER_OF_SCROLLS
+        percent = (scroll_counter + 1) * 100 / NUMBER_OF_SCROLLS
         print "scrolling... (%s%%)" % (percent)
         #print "page source length:", len(driver.page_source)
         time.sleep(WAIT_BETWEEN_SCROLLS)
@@ -61,7 +65,12 @@ with open('archive_data.csv','wb') as csvfile:
         for link in soup.find_all(class_ = "post_content"):
 
             image_url = link.div.div.get('data-imageurl')
-            image_url = image_url.replace('_250', '_1280')
+
+            for low_res in ['_250', '_400', '_500', '_540']:
+                image_url = image_url.replace(low_res ,'_1280')
+
+            if not '_1280' in image_url:
+                print image_url
 
             if image_url in image_urls:
                 print "caught!"
